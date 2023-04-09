@@ -1,0 +1,9 @@
+email: chris.thorpe@capgemini.com
+
+issuerName: letsencrypt-staging
+
+acmeServerURL: https://acme-v02.api.letsencrypt.org/directory
+
+dnsSolvers:
+  enabled: false
+

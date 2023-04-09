@@ -1,0 +1,17 @@
+apiVersion: cert-manager.io/v1alpha2
+kind: ClusterIssuer
+metadata:
+  name: {{ .Values.issuerName }}
+spec:
+  acme:
+    server: {{ .Values.acmeServerURL }}
+    email: {{ required "The 'email' value must be set!" .Values.email }}
+    privateKeySecretRef:
+      name: {{ .Values.issuerName }}
+    solvers:
+    - http01:
+        ingress:
+          class: nginx
+    {{ if .Values.dnsSolvers.enabled }}
+    - dns01: {{ .Values.dnsSolvers | toJson }}
+    {{ end }}
