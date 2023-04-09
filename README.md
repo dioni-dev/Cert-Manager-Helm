@@ -11,12 +11,12 @@ This Helm chart deploys [cert-manager](https://cert-manager.io/), a Kubernetes a
 
 1. Add the cert-manager Helm repository:
 
-helm repo add jetstack https://charts.jetstack.io
-helm repo update
+`helm repo add jetstack https://charts.jetstack.io`
+`helm repo update`
 
 2. Install the cert-manager Helm chart:
 
-helm install cert-manager jetstack/cert-manager --namespace cert-manager --create-namespace --version v1.7.1
+`helm install cert-manager jetstack/cert-manager --namespace cert-manager --create-namespace --version v1.7.1`
 
 
 To customize the installation, you can create a custom values file and pass it during the installation using the `--values` flag. For available options, please see the [cert-manager documentation](https://cert-manager.io/docs/).
@@ -42,6 +42,6 @@ dnsNames:
 issuerRef:
  name: my-issuer
  kind: Issuer
-´´´
+```
 
 For more information on using cert-manager, please refer to the official documentation.
