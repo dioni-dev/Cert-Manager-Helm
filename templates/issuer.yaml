@@ -1,17 +1,22 @@
-apiVersion: cert-manager.io/v1alpha2
-kind: ClusterIssuer
+apiVersion: cert-manager.io/v1
+kind: Issuer
 metadata:
-  name: {{ .Values.issuerName }}
+  name: letsencrypt-issuer
+  namespace: default
 spec:
   acme:
-    server: {{ .Values.acmeServerURL }}
-    email: {{ required "The 'email' value must be set!" .Values.email }}
+    server: https://acme-v02.api.letsencrypt.org/directory
+    email: your-email@example.com
     privateKeySecretRef:
-      name: {{ .Values.issuerName }}
+      name: letsencrypt-issuer-account-key
     solvers:
-    - http01:
-        ingress:
-          class: nginx
-    {{ if .Values.dnsSolvers.enabled }}
-    - dns01: {{ .Values.dnsSolvers | toJson }}
-    {{ end }}
+    - dns01:
+        azureDNS:
+          clientID: YOUR_AZURE_CLIENT_ID
+          clientSecretSecretRef:
+            name: azuredns-client-secret
+            key: clientSecret
+          subscriptionID: YOUR_AZURE_SUBSCRIPTION_ID
+          tenantID: YOUR_AZURE_TENANT_ID
+          resourceGroupName: YOUR_AZURE_RESOURCE_GROUP
+          hostedZoneName: digitalmydomain.xyz
